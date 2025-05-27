@@ -1,0 +1,364 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card h2 {
+    color: #4a5568;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.delete-btn {
+    background: #e53e3e;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+    background: #c53030;
+    transform: translateY(-1px);
+}
+
+/* Input styles */
+input[type="text"], input[type="url"], input[type="number"] {
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="url"]:focus, input[type="number"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Daily Goals */
+.goal-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.goal-input input {
+    flex: 1;
+}
+
+.goals-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.goal-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: #f8fafc;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.goal-item:hover {
+    background: #e2e8f0;
+}
+
+.goal-item.completed {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+.goal-text {
+    flex: 1;
+    cursor: pointer;
+}
+
+/* Calendar */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.nav-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background: #5a67d8;
+    transform: translateY(-1px);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 20px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.calendar-day:hover {
+    background: #e2e8f0;
+}
+
+.calendar-day.today {
+    background: #667eea;
+    color: white;
+}
+
+.calendar-day.other-month {
+    opacity: 0.3;
+}
+
+.day-header {
+    font-weight: bold;
+    background: #4a5568;
+    color: white;
+}
+
+/* Pomodoro Timer */
+.timer-display {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.timer-time {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #4a5568;
+    margin-bottom: 10px;
+}
+
+.timer-label {
+    font-size: 1.2rem;
+    color: #718096;
+    margin-bottom: 20px;
+}
+
+.timer-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.timer-settings {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.timer-setting {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.timer-setting input {
+    width: 60px;
+    padding: 4px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Bookmarks */
+.bookmark-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.bookmarks-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.bookmark-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: #f8fafc;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.bookmark-item:hover {
+    background: #e2e8f0;
+}
+
+.bookmark-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    flex: 1;
+}
+
+.bookmark-link:hover {
+    text-decoration: underline;
+}
+
+.bookmark-url {
+    font-size: 12px;
+    color: #718096;
+    margin-top: 4px;
+}
+
+/* Icons */
+.icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+/* Scrollbar styling */
+.goals-list::-webkit-scrollbar,
+.bookmarks-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.goals-list::-webkit-scrollbar-track,
+.bookmarks-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.goals-list::-webkit-scrollbar-thumb,
+.bookmarks-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.goals-list::-webkit-scrollbar-thumb:hover,
+.bookmarks-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .timer-time {
+        font-size: 2rem;
+    }
+    
+    .timer-controls {
+        flex-wrap: wrap;
+    }
+    
+    .goal-input {
+        flex-direction: column;
+    }
+    
+    body {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .timer-settings {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .bookmark-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .goal-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
