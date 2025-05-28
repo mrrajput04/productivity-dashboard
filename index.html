@@ -53,12 +53,13 @@
                 Pomodoro Timer
             </h2>
             <div class="timer-display">
-                <div class="timer-time" id="timerDisplay">25:00</div>
-                <div class="timer-label" id="timerLabel">Work Time</div>
+                <div class="timer-time" id="timer-display">25:00</div>
+                <div class="timer-label" id="timer-mode">Work Time</div>
+                <div class="pomodoro-count" id="pomodoro-count">Pomodoros: 0</div>
                 <div class="timer-controls">
-                    <button class="btn" id="startBtn" onclick="Pomodoro.start()">Start</button>
-                    <button class="btn" onclick="Pomodoro.pause()">Pause</button>
-                    <button class="btn" onclick="Pomodoro.reset()">Reset</button>
+                    <button class="btn" id="start-timer" onclick="Pomodoro.startTimer()">Start</button>
+                    <button class="btn" id="pause-timer" onclick="Pomodoro.pauseTimer()">Pause</button>
+                    <button class="btn" id="reset-timer" onclick="Pomodoro.resetTimer()">Reset</button>
                 </div>
                 <div class="timer-settings">
                     <div class="timer-setting">

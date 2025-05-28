@@ -62,10 +62,10 @@ class App {
 			// Space to start/pause timer
 			if (e.code === 'Space' && e.target.tagName !== 'INPUT') {
 				e.preventDefault();
-				if (Pomodoro.isRunning) {
-					Pomodoro.pause();
+				if (Pomodoro.isRunning && !Pomodoro.isPaused) {
+					Pomodoro.pauseTimer();
 				} else {
-					Pomodoro.start();
+					Pomodoro.startTimer();
 				}
 			}
 		});
@@ -75,6 +75,9 @@ class App {
 			if (document.hidden) {
 				// Page is hidden - could pause non-essential updates
 				console.log('Dashboard is now hidden');
+				if (Pomodoro.isRunning && !Pomodoro.isPaused) {
+					Pomodoro.pauseTimer();
+				}
 			} else {
 				// Page is visible - resume updates
 				console.log('Dashboard is now visible');
@@ -88,7 +91,7 @@ class App {
 			this.saveAllData();
 
 			// Show warning if timer is running
-			if (Pomodoro.isRunning) {
+			if (Pomodoro.isRunning && !Pomodoro.isPaused) {
 				e.preventDefault();
 				e.returnValue = 'You have a running Pomodoro timer. Are you sure you want to leave?';
 				return e.returnValue;
@@ -198,98 +201,38 @@ class App {
 
 		notification.style.cssText = `
             position: fixed;
-            top: 20px;
+            bottom: 20px;
             right: 20px;
             background: ${bgColor};
             color: white;
-            padding: 15px 20px;
+            padding: 12px 24px;
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             opacity: 0;
-            transform: translateX(100%);
+            transform: translateY(10px);
             transition: all 0.3s ease;
+            z-index: 1000;
         `;
-		notification.textContent = message;
 
+		notification.textContent = message;
 		document.body.appendChild(notification);
 
-		// Animate in
+		// Trigger animation
 		setTimeout(() => {
 			notification.style.opacity = '1';
-			notification.style.transform = 'translateX(0)';
+			notification.style.transform = 'translateY(0)';
 		}, 100);
 
-		// Animate out and remove
+		// Remove after 3 seconds
 		setTimeout(() => {
 			notification.style.opacity = '0';
-			notification.style.transform = 'translateX(100%)';
+			notification.style.transform = 'translateY(10px)';
 			setTimeout(() => {
 				if (document.body.contains(notification)) {
 					document.body.removeChild(notification);
 				}
 			}, 300);
 		}, 3000);
-	}
-
-	static getAppStats() {
-		return {
-			goals: {
-				total: Goals.getTotalCount(),
-				completed: Goals.getCompletedCount(),
-				progress: Goals.getProgress()
-			},
-			pomodoro: Pomodoro.getStats(),
-			bookmarks: {
-				total: storage.getBookmarks().length
-			},
-			storage: {
-				available: storage.isLocalStorageAvailable
-			}
-		};
-	}
-
-	static exportAllData() {
-		const data = {
-			goals: storage.getGoals(),
-			bookmarks: storage.getBookmarks(),
-			pomodoroSettings: storage.getPomodoroSettings(),
-			exportDate: new Date().toISOString()
-		};
-
-		const dataStr = JSON.stringify(data, null, 2);
-		const dataBlob = new Blob([dataStr], { type: 'application/json' });
-
-		const link = document.createElement('a');
-		link.href = URL.createObjectURL(dataBlob);
-		link.download = `productivity-dashboard-${new Date().toISOString().split('T')[0]}.json`;
-		link.click();
-
-		this.showNotification('Data exported successfully!');
-	}
-
-	static importAllData(fileInput) {
-		const file = fileInput.files[0];
-		if (!file) return;
-
-		const reader = new FileReader();
-		reader.onload = (e) => {
-			try {
-				const data = JSON.parse(e.target.result);
-
-				if (data.goals) storage.data.goals = data.goals;
-				if (data.bookmarks) storage.data.bookmarks = data.bookmarks;
-				if (data.pomodoroSettings) storage.data.pomodoroSettings = data.pomodoroSettings;
-
-				storage.saveToLocalStorage();
-				this.refreshAllComponents();
-				this.showNotification('Data imported successfully!');
-			} catch (error) {
-				this.showNotification('Error importing data. Invalid file format.', 'error');
-			}
-		};
-		reader.readAsText(file);
 	}
 }
 
