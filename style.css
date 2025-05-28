@@ -102,6 +102,21 @@ input[type="text"]:focus, input[type="url"]:focus, input[type="number"]:focus {
     flex: 1;
 }
 
+.priority-select {
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.priority-select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
 .goals-list {
     max-height: 300px;
     overflow-y: auto;
@@ -127,9 +142,48 @@ input[type="text"]:focus, input[type="url"]:focus, input[type="number"]:focus {
     text-decoration: line-through;
 }
 
+.goal-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
 .goal-text {
     flex: 1;
     cursor: pointer;
+}
+
+.priority-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+.priority-badge.high {
+    background-color: #e53e3e;
+}
+
+.priority-badge.medium {
+    background-color: #d69e2e;
+}
+
+.priority-badge.low {
+    background-color: #38a169;
+}
+
+.priority-high {
+    border-left: 4px solid #e53e3e;
+}
+
+.priority-medium {
+    border-left: 4px solid #d69e2e;
+}
+
+.priority-low {
+    border-left: 4px solid #38a169;
 }
 
 /* Calendar */

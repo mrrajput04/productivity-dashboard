@@ -46,7 +46,7 @@ class Goals {
 		const goal = goals.find(g => g.id === id);
 
 		if (goal) {
-			storage.updateGoal(id, { completed: !goal.completed });
+			window.storage.updateGoal(id, { completed: !goal.completed });
 			this.render();
 		}
 	}
@@ -100,7 +100,7 @@ class Goals {
 	}
 
 	static getTotalCount() {
-		return storage.getGoals().length;
+		return window.storage.getGoals().length;
 	}
 
 	static getProgress() {

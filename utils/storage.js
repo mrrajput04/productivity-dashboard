@@ -124,5 +124,5 @@ class Storage {
 	}
 }
 
-// Create global storage instance
-const storage = new Storage();
+// Export the Storage class
+window.Storage = Storage;

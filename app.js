@@ -1,6 +1,11 @@
 // Main application initialization and coordination
 class App {
 	static init() {
+		// Initialize storage first
+		if (!window.storage) {
+			window.storage = new Storage();
+		}
+
 		// Wait for DOM to be ready
 		if (document.readyState === 'loading') {
 			document.addEventListener('DOMContentLoaded', () => this.initialize());
