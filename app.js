@@ -238,3 +238,27 @@ class App {
 
 // Initialize the app
 App.init();
+
+
+// Theme Toggling
+const themeToggleBtn = document.getElementById('theme-toggle');
+
+function toggleTheme() {
+	const currentTheme = document.documentElement.getAttribute('data-theme');
+	const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+	document.documentElement.setAttribute('data-theme', newTheme);
+	localStorage.setItem('theme', newTheme);
+}
+
+// Apply saved theme on load
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+	document.documentElement.setAttribute('data-theme', savedTheme);
+} else {
+	// Default to light theme if no theme is saved
+	document.documentElement.setAttribute('data-theme', 'light');
+}
+
+if (themeToggleBtn) {
+	themeToggleBtn.addEventListener('click', toggleTheme);
+}
